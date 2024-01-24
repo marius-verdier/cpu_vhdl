@@ -8,7 +8,7 @@ entity ALU is
         A : in std_logic_vector(3 downto 0); -- Input A
         B : in std_logic_vector(3 downto 0); -- Input B
         OP : in std_logic_vector(3 downto 0); -- Opcode
-        R : in std_logic_vector(3 downto 0); -- Result
+        R : out std_logic_vector(3 downto 0); -- Result
     );
 end ALU;
 

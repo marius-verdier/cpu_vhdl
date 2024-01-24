@@ -39,7 +39,14 @@ END CPU;
 
 ARCHITECTURE bdf_type OF CPU IS 
 
-
+component alu
+	port (
+		a : in std_logic_vector(3 downto 0);
+		b : in std_logic_vector(3 downto 0);
+		op : in std_logic_vector(3 downto 0);
+		result : out std_logic_vector(3 downto 0);
+	)
+end component;
 
 COMPONENT seg7_lut
 	PORT(iDIG : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -73,17 +80,20 @@ SIGNAL	seg7_in3 :  STD_LOGIC_VECTOR(3 DOWNTO 0);
 SIGNAL	seg7_in4 :  STD_LOGIC_VECTOR(3 DOWNTO 0);
 SIGNAL	seg7_in5 :  STD_LOGIC_VECTOR(7 DOWNTO 0);
 
+signal alu_a : std_logic_vector(3 downto 0);
+signal alu_b : std_logic_vector(3 downto 0);
+signal alu_op : std_logic_vector(3 downto 0);
+signal alu_result : std_logic_vector(3 downto 0);
 
 BEGIN 
 
-
-
-
-
-
-
-
-
+alu_inst : alu
+port map(
+	a => alu_a,
+	b => alu_b,
+	op => alu_op,
+	result => alu_result
+);
 
 
 b2v_inst : seg7_lut
