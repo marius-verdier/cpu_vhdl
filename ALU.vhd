@@ -16,7 +16,7 @@ end ALU;
 architecture behavior of ALU is
 signal RESULT : std_logic_vector(15 downto 0);
 begin
-    process(A, B, OP)
+------    process(A, B, OP)
     begin
         case OP is
             when "0000" => -- ADD
