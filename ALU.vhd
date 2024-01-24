@@ -9,6 +9,7 @@ entity ALU is
         B : in std_logic_vector(3 downto 0); -- Input B
         OP : in std_logic_vector(3 downto 0); -- Opcode
         R : out std_logic_vector(3 downto 0); -- Result
+        Z : out std_logic -- Zero flag
     );
 end ALU;
 
@@ -33,13 +34,16 @@ begin
                 RESULT <= A - B;
             when "0111" => -- CMP
                 if (A=B) then
-                    RESULT <= x"01";
+                    RESULT <= x"0001";
                 else
-                    RESULT <= x"00";
+                    RESULT <= x"0000";
                 end if;
+            when "1000" => -- NOT
+                RESULT <= not A;
             when others => 
-                RESULT <= x"00";
+                RESULT <= x"0000";
         end case;
     end process;
+    Z <= '1' when (RESULT = x"0000") else '0';
     
 end architecture behavior;
