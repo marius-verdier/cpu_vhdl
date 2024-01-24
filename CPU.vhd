@@ -43,11 +43,12 @@ ARCHITECTURE bdf_type OF CPU IS
 
 component alu
 	port (
-		a : in std_logic_vector(3 downto 0);
-		b : in std_logic_vector(3 downto 0);
-		op : in std_logic_vector(3 downto 0);
-		result : out std_logic_vector(3 downto 0);
-	)
+		  A : in std_logic_vector(15 downto 0); -- Input A
+        B : in std_logic_vector(15 downto 0); -- Input B
+        OP : in std_logic_vector(3 downto 0); -- Opcode
+        Y : out std_logic_vector(15 downto 0); -- Result
+        Z : out std_logic -- Zero flag
+	);
 end component;
 
 component register_file
@@ -60,11 +61,11 @@ component register_file
 		data_in : in std_logic_vector(15 downto 0);
 
 		addressA : in std_logic_vector(2 downto 0);
-		data_outA : in std_logic_vector(15 downto 0);
+		data_outA : out std_logic_vector(15 downto 0);
 
 		addressB : in std_logic_vector(2 downto 0);
-		data_outB : in std_logic_vector(15 downto 0)
-	)
+		data_outB : out std_logic_vector(15 downto 0)
+	);
 end component;
 
 component seg7_lut
@@ -99,13 +100,14 @@ SIGNAL	seg7_in3 :  STD_LOGIC_VECTOR(3 DOWNTO 0);
 SIGNAL	seg7_in4 :  STD_LOGIC_VECTOR(3 DOWNTO 0);
 SIGNAL	seg7_in5 :  STD_LOGIC_VECTOR(7 DOWNTO 0);
 
-signal alu_a : std_logic_vector(3 downto 0);
-signal alu_b : std_logic_vector(3 downto 0);
+signal alu_a : std_logic_vector(15 downto 0);
+signal alu_b : std_logic_vector(15 downto 0);
 signal alu_op : std_logic_vector(3 downto 0);
-signal alu_result : std_logic_vector(3 downto 0);
+signal alu_result : std_logic_vector(15 downto 0);
+signal alu_zero: std_logic;
 
 signal rf_reset : std_logic;
-signal rf_clock : std_logic := 0;
+signal rf_clock : std_logic := '0';
 signal rf_write_enable : std_logic;
 signal rf_address : std_logic_vector(2 downto 0);
 signal rf_data_in : std_logic_vector(15 downto 0);
@@ -120,10 +122,11 @@ BEGIN
 
 alu_inst : alu
 port map(
-	a => alu_a,
-	b => alu_b,
-	op => alu_op,
-	result => alu_result
+	A => alu_a,
+	B => alu_b,
+	OP => alu_op,
+	Y => alu_result,
+	Z => alu_zero
 );
 
 reg_file_inst : register_file

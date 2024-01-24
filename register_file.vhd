@@ -17,7 +17,7 @@ entity register_file is -- Register File
 
         addressB : in std_logic_vector(2 downto 0);
         data_outB : out std_logic_vector(15 downto 0)
-    )
+    );
 end register_file;
 
 architecture behavior of register_file is
@@ -39,8 +39,8 @@ begin
         end if;
     end process;
             
-    data_outA <= x"0000" if addressA = "000" else registers(to_integer(unsigned(addressA)));
-    data_outB <= x"0000" if addressB = "000" else registers(to_integer(unsigned(addressB)));
+    data_outA <= x"0000" when addressA = "000" else registers(to_integer(unsigned(addressA)));
+    data_outB <= x"0000" when addressB = "000" else registers(to_integer(unsigned(addressB)));
 
 end architecture behavior;
 
