@@ -9,13 +9,13 @@ entity register_file is -- Register File
         clock : in std_logic;
         write_enable : in std_logic;
 
-        address : in std_logic_vector(2 downto 0);
+        address : in std_logic_vector(3 downto 0);
         data_in : in std_logic_vector(15 downto 0);
 
-        addressA : in std_logic_vector(2 downto 0);
+        addressA : in std_logic_vector(3 downto 0);
         data_outA : out std_logic_vector(15 downto 0);
 
-        addressB : in std_logic_vector(2 downto 0);
+        addressB : in std_logic_vector(3 downto 0);
         data_outB : out std_logic_vector(15 downto 0)
     );
 end register_file;
